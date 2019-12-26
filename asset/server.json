@@ -1,0 +1,20 @@
+{
+    "command": {
+        "system": "dummy"
+    },
+    "intent": {
+        "system": "fuzzywuzzy"
+    },
+    "microphone": {
+        "system": "dummy"
+    },
+    "rhasspy": {
+        "listen_on_start": false
+    },
+    "sounds": {
+        "system": "dummy"
+    },
+    "text_to_speech": {
+        "system": "dummy"
+    }
+}

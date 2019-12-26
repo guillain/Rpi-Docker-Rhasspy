@@ -1,0 +1,25 @@
+{
+    "intent": {
+        "remote": {
+            "url": "http://192.168.30.72:12101/api/text-to-intent"
+        },
+        "system": "remote"
+    },
+    "microphone": {
+        "arecord": {
+            "device": "default:CARD=BT600"
+        }
+    },
+    "sounds": {
+        "system": "dummy"
+    },
+    "speech_to_text": {
+        "remote": {
+            "url": "http://192.168.30.72:12101/api/speech-to-text"
+        },
+        "system": "remote"
+    },
+    "wake": {
+        "system": "snowboy"
+    }
+}

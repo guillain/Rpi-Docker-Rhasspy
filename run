@@ -1,0 +1,39 @@
+#!/bin/bash
+# https://rhasspy.readthedocs.io/en/latest/installation/
+# https://github.com/synesthesiam/rhasspy-profiles/releases
+
+# ToDo 
+# 1/ Adapt the client's conf for te server access, profiles/client/fr/profile.json 
+#   4:            "url": "http://192.168.30.72:12101/api/text-to-intent"
+#   18:            "url": "http://192.168.30.72:12101/api/speech-to-text"
+# 2/ Train your words in the server side (12101)
+# 3/ Consum your voice recognition services on client side (12102)
+
+LANG="fr" 
+IMAGE="synesthesiam/rhasspy-server:latest"
+
+mkdir -p profiles/client profiles/server
+
+# server
+docker run -p 12101:12101 \
+  --restart unless-stopped \
+  --name rhasspy-server \
+  -v `pwd`/profiles/server:/profiles \
+  -v `pwd`/asset/server.json:/profiles/${LANG}/profile.json \
+  -v `pwd`/asset/sentences.ini:/profiles/${LANG}/sentences.ini \
+  -v `pwd`/asset/custom_words.txt:/profiles/${LANG}/custom_words.txt \
+  ${IMAGE} \
+  --user-profiles /profiles \
+  --profile ${LANG} &
+
+# client
+docker run -p 12102:12101 \
+  --restart unless-stopped \
+  --name rhasspy-client \
+  -v `pwd`/profiles/client:/profiles \
+  -v `pwd`/asset/client.json:/profiles/${LANG}/profile.json \
+  --device /dev/snd:/dev/snd \
+  ${IMAGE} \
+  --user-profiles /profiles \
+  --profile ${LANG} &
+
